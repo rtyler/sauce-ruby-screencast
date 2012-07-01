@@ -1,4 +1,4 @@
-Given /^I am a regstered user$/ do
+Given /^I am a registered user$/ do
   @username = 'sauce-gem-dev'
   @password = ENV['SAUCE_PASSWORD']
 
@@ -14,6 +14,7 @@ end
 When /^I attempt to log into the site$/ do
   visit 'https://www.saucelabs.com'
   click_link 'Login'
+  puts current_url
   # Assert that we end up on the login page
   find('input#username').should_not be_nil
 
@@ -31,3 +32,6 @@ Then /^I should be told my credentials are invalid$/ do
   errorbox.should be_visible
 end
 
+Then /^I should be logged in$/ do
+  current_url.should eql('https://saucelabs.com/account')
+end
